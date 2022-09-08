@@ -45,6 +45,10 @@ tlv_box_t *tlv_box_parse(unsigned char *buffer, int buffersize)
         offset += sizeof(int);
         int length = (*(int *)(cached + offset));
         offset += sizeof(int);
+        if (type == 1) {	//do not deserialize BEGIN
+            offset += 4;
+            continue;
+        }
         tlv_box_putobject(box, type, cached+offset, length);
         offset += length;
     }
